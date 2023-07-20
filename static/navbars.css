@@ -1,0 +1,47 @@
+/* Add a black background color to the top navigation */
+.topnav {
+    background-color: #e0e0e07b;
+}
+
+/* Style the links inside the navigation bar 글자색*/
+.topnav a {
+  float: left;
+  color: #404040;
+  text-align: center; 
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+  background-color: #CC0000;
+  color: white;
+}
+
+/* Right-aligned section inside the top navigation */
+.topnav-right {
+  float: right;
+}
+
+.topnav-right a.login {
+  background-color: #CC0000;
+  border: 1px solid black;
+  border-radius: 10px;
+  margin-right: 10px;
+  color: white;
+}
+
+.topnav-right a.join{
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 10px;
+  color: black;
+  margin-right: 20px;
+}

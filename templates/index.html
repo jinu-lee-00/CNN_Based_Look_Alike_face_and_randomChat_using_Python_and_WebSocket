@@ -1,0 +1,103 @@
+{% extends 'layout.html' %}
+{% block title %}MBTI CHAT{% endblock %}
+{% block header %}
+
+        <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+        <script type="text/javascript" charset="utf-8">
+
+            var socket;
+            $(document).ready(function(){
+                socket = io.connect('http://' + document.domain + ':' + location.port + '/');
+                socket.on('connect', function() {
+                    socket.emit('joined', {});
+                });
+                socket.on('status', function(data) {
+                    $('#chat').val($('#chat').val() + '< ' + data.msg + ' >\n');
+                    $('#chat').scrollTop($('#chat')[0].scrollHeight);
+                });
+                socket.on('message', function(data) {
+                    $('#chat').val($('#chat').val() + data.msg + '\n');
+                    $('#chat').scrollTop($('#chat')[0].scrollHeight);
+                });
+                $('#text').keypress(function(e) {
+                    var code = e.keyCode || e.which;
+                    if (code == 13) {
+                        text = $('#text').val();
+                        $('#text').val('');
+                        socket.emit('text', {msg: text});
+                    }
+                });
+            });
+            function leave_room() {
+                socket.emit('left', {}, function() {
+                    socket.disconnect();
+
+                    window.location.href = "{{ url_for('main.index') }}";
+                });
+            }
+        </script>
+{% endblock %}
+
+{% block tab %}
+    <a class="active" href="/">메인</a>
+    <a href="/bbs">게시판</a>
+    <a href="/chat_lobby">1:1 랜덤채팅</a>
+    <a href="/resemble">닮은꼴 연예인</a>
+    <a href="https://www.16personalities.com/ko/%EB%AC%B4%EB%A3%8C-%EC%84%B1%EA%B2%A9-%EC%9C%A0%ED%98%95-%EA%B2%80%EC%82%AC" target="_blank">MBTI검사</a>
+{% endblock %}
+
+{% block contents %}
+
+<center>
+  <div class="container text-center">
+    <div class="row">
+
+ 
+      <div class="col-md-4" style="margin-right: 30px; margin-left: 130px;">
+        <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+          <div class="col p-4 d-flex flex-column position-static">
+            <strong class="d-inline-block mb-2 text-primary">Community</strong>
+            <h3 class="mb-0">게시판</h3>
+            <div class="mb-1 text-muted"><br></div>
+            <p class="card-text mb-auto">MBTI별 게시판</p>
+            <a href="/bbs" class="stretched-link">바로가기</a>
+          </div>
+          <div class="col-auto d-none d-lg-block">
+            <img src="/static/brand/community.png" width="200" height="250">
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+          <div class="col p-4 d-flex flex-column position-static">
+            <strong class="d-inline-block mb-2 text-success">Chatting</strong>
+            <h3 class="mb-0">1:1 랜덤채팅</h3>
+            <div class="mb-1 text-muted"><br></div>
+            <p class="mb-auto">서로의 MBTI를 확인가능</p>
+            <a href="/chat_lobby" class="stretched-link">바로가기</a>
+          </div>
+          <div class="col-auto d-none d-lg-block">
+            <img src="/static/brand/chat.png" width="200" height="250">
+          </div>
+        </div>
+        <br><br><br><br><br><br>
+      </div>
+      
+      <div style="border: 1px solid black">
+        <h3>전체채팅방</h3>
+        <h5>로그인하지 않고도 전체 접속자와 대화 가능합니다</h5>
+      </div>
+      <textarea id="chat" cols="40" rows="20"></textarea><br><br>
+      <input id="text" size="80" placeholder="메시지를 입력해보세요!"><br><br>
+    </div>
+  </div>
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    
+</center>
+
+
+
+    
+
+{% endblock %}

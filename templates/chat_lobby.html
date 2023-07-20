@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+{% block title %}채팅 로비{% endblock %}
+
+{% block tab %}
+        <a href="/">메인</a>
+        <a href="/bbs">게시판</a>
+        <a class="active" href="/chat_lobby">1:1 랜덤채팅</a>
+        <a href="/resemble">닮은꼴 연예인</a>
+        <a href="https://www.16personalities.com/ko/%EB%AC%B4%EB%A3%8C-%EC%84%B1%EA%B2%A9-%EC%9C%A0%ED%98%95-%EA%B2%80%EC%82%AC" target="_blank">MBTI검사</a>
+{% endblock %}
+
+{% block contents %}
+<center>
+        <div class="container">
+                <div class="jumbotron">
+                        <h2>1:1 랜덤채팅</h2>
+                        <p>대화 상대를 찾고 있는 사람과 1대1로 채팅을 할 수 있습니다.</p>
+                        <p>상대방의 닉네임과 MBTI를 확인 가능합니다.</p>
+                        <form action = "/chat_lobby" method = "POST">
+                                <p><button class="btn btn-outline-danger" type="submit" style="border-color: red">입장하기</button></p>
+                        </form>
+                </div>
+        </div>
+</center>
+{% endblock %}
