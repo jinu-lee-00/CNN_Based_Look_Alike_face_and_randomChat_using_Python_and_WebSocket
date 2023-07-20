@@ -72,3 +72,4 @@ route.py에서 먼저 전역변수로 카운트변수 cnt를 선언했다.
 - 먼저 crawling.py에서 연예인 얼굴의 dataset을 수집한다.
 이후 train.py에서 학습을 진행하고 저장된 model_weights.pth 가중치 파일을
 route.py의 resemble 함수에서 활용하여 form 으로 받은 이미지와 닮은 연예인들을 찾아준다.
+9명에 대해 각각 180개의 학습 사진 데이터, epoch = 50, batch_size = 10 으로 학습시켰다.
